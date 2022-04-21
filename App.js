@@ -170,13 +170,19 @@ export class AddPassword extends Component {
               {this.state.siteToUpdate ? `Update password for \n ${this.state.siteName}`:"Save New Password"}
           </Text>
 
-            <TextInput
+            {this.state.siteName ? <TextInput
                 style={styles.input}
                 onChangeText={(val) => this.state.siteName = val}
                 value={this.state.siteName}
                 editable={this.state.siteToUpdate === null}
                 placeholder="Name of site"
-            />
+            />:<TextInput
+                style={styles.input}
+                onChangeText={(val) => this.state.siteName = val}
+                placeholder="Name of site"
+            />}
+
+
 
             <TextInput
                 style={styles.input}
