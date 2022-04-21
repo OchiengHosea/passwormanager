@@ -188,7 +188,7 @@ export class AddPassword extends Component {
                 <TouchableOpacity
                     style={styles.button}
                     onPress={this.savePassword}>
-                    <Text style={styles.buttonLabel}>Add</Text>
+                    <Text style={styles.buttonLabel}>{this.state.siteToUpdate ? 'Update': 'Add'}</Text>
                 </TouchableOpacity>
             </View>
 
