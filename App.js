@@ -79,16 +79,19 @@ class Passwords extends Component {
                 </View>
 
                 <View>
-                    {Object.keys(passwords).map((key, i) =>
+                    {passwords && Object.keys(passwords).map((key, i) =>
                         <View key={i} style={styles.passwordEntryContainer}>
-                            <View style={{width:'50%'}}>
+                            <View>
                                 <Text style={styles.passwordEntry}>{i+1} . {key}</Text>
                             </View>
 
-                            <View style={[styles.passActionWrapper,{width:'50%'}]}>
+                            <View style={[styles.passActionWrapper,{width:'75%'}]}>
                                 <Text style={styles.passActionItem}>****</Text>
                                 <TouchableOpacity style={styles.passActionItem} onPress={() => this.viewPassword(key)}>
                                     <Text>View</Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity style={styles.passActionItem} onPress={() => {this.props.navigation.navigate("AddPassword", {"update_site_password": {siteName:key, password:this.state.passwords[key]}})}}>
+                                    <Text>Update</Text>
                                 </TouchableOpacity>
                                 <TouchableOpacity style={styles.passActionItem} onPress={() => this.deletePassword(key)}>
                                     <Text>Delete</Text>
@@ -105,11 +108,23 @@ class Passwords extends Component {
 export class AddPassword extends Component {
   constructor(props) {
     super(props);
+    let update;
+      if (props.route.params !== undefined){
+          update = props.route.params.update_site_password
+      }
+
     this.state = {
         siteName: "",
-        password: ""
+        password: "",
+        siteToUpdate: update || null
     }
   }
+
+    componentDidMount() {
+        if (this.state.siteToUpdate){
+            this.setState(this.state.siteToUpdate);
+        }
+    }
 
     getData = async (key) => {
         try {
@@ -151,13 +166,15 @@ export class AddPassword extends Component {
   render() {
     return(
         <View style={styles.container}>
-          <Text style={styles.title}>
-            Save New Password
+          <Text style={[styles.title, {textAlign:'center'}]}>
+              {this.state.siteToUpdate ? `Update password for \n ${this.state.siteName}`:"Save New Password"}
           </Text>
 
             <TextInput
                 style={styles.input}
                 onChangeText={(val) => this.state.siteName = val}
+                value={this.state.siteName}
+                editable={this.state.siteToUpdate === null}
                 placeholder="Name of site"
             />
 
