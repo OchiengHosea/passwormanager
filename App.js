@@ -81,11 +81,11 @@ class Passwords extends Component {
                 <View>
                     {passwords && Object.keys(passwords).map((key, i) =>
                         <View key={i} style={styles.passwordEntryContainer}>
-                            <View>
+                            <View style={{borderBottomColor: 'grey',borderBottomWidth: 1,}}>
                                 <Text style={styles.passwordEntry}>{i+1} . {key}</Text>
                             </View>
 
-                            <View style={[styles.passActionWrapper,{width:'75%'}]}>
+                            <View style={[styles.passActionWrapper,{width:'100%'}]}>
                                 <Text style={styles.passActionItem}>****</Text>
                                 <TouchableOpacity style={styles.passActionItem} onPress={() => this.viewPassword(key)}>
                                     <Text>View</Text>
@@ -284,12 +284,8 @@ const styles = StyleSheet.create({
     },
 
     passwordEntryContainer: {
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        justifyContent: 'flex-end',
-        alignItems: 'flex-end',
-        alignSelf: 'flex-end',
-        backgroundColor: "#eae9e9",
+        justifyContent: 'flex-start',
+        backgroundColor: "#f8f1f1",
         borderRadius: 10,
         elevation: 2,
         marginTop: 6
